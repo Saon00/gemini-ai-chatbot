@@ -15,7 +15,7 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> {
   ChatUser currentUser =
-      ChatUser(id: '0', firstName: "User", profileImage: "assets/boy.png");
+      ChatUser(id: '0', firstName: "User");
   ChatUser geminiUser =
       ChatUser(id: '1', firstName: "Gemini", profileImage: "assets/gemini.png");
   List<ChatMessage> messages = [];
@@ -25,7 +25,7 @@ class _HomePageState extends State<HomePage> {
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
-        backgroundColor: Colors.white70,
+        backgroundColor: Colors.blue[900],
         appBar: AppBar(
           backgroundColor: Colors.white70,
           shape: const RoundedRectangleBorder(
