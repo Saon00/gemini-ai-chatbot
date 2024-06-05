@@ -4,6 +4,7 @@ import 'dart:typed_data';
 import 'package:dash_chat_2/dash_chat_2.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gemini/flutter_gemini.dart';
+import 'package:geminichat/contstants.dart';
 import 'package:image_picker/image_picker.dart';
 
 class HomePage extends StatefulWidget {
@@ -14,8 +15,7 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
-  ChatUser currentUser =
-      ChatUser(id: '0', firstName: "User");
+  ChatUser currentUser = ChatUser(id: '0', firstName: "User");
   ChatUser geminiUser =
       ChatUser(id: '1', firstName: "Gemini", profileImage: "assets/gemini.png");
   List<ChatMessage> messages = [];
@@ -23,20 +23,41 @@ class _HomePageState extends State<HomePage> {
 
   @override
   Widget build(BuildContext context) {
-    return SafeArea(
-      child: Scaffold(
-        backgroundColor: Colors.blue[900],
-        appBar: AppBar(
-          backgroundColor: Colors.white70,
-          shape: const RoundedRectangleBorder(
-              borderRadius: BorderRadius.only(
-                  bottomLeft: Radius.circular(15),
-                  bottomRight: Radius.circular(15))),
-          title: const Text('Gemini Chat'),
-          centerTitle: true,
-        ),
-        body: _buildUI(),
+    return Scaffold(
+      // drawer: Drawer(
+      //   child: ListView(
+      //     children: [
+      //       const DrawerHeader(
+      //         child: Text("Menu"),
+      //       ),
+      //       ListTile(
+      //         title: const Text("Chat History"),
+      //         onTap: _showChatHistory,
+      //       )
+      //     ],
+      //   ),
+      // ),
+      // backgroundColor: Colors.blue[900],
+      backgroundColor: bgcolor,
+      appBar: AppBar(
+        actions: [
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 10),
+            child: CircleAvatar(
+              child: Image.asset('assets/boy.png'),
+            ),
+          )
+        ],
+        backgroundColor: bgcolor,
+        foregroundColor: fgcolor,
+        shape: const RoundedRectangleBorder(
+            borderRadius: BorderRadius.only(
+                bottomLeft: Radius.circular(15),
+                bottomRight: Radius.circular(15))),
+        title: const Text('Gemini Chat'),
+        centerTitle: true,
       ),
+      body: _buildUI(),
     );
   }
 
@@ -88,7 +109,8 @@ class _HomePageState extends State<HomePage> {
         }
       });
     } catch (e) {
-      print(e);
+      ScaffoldMessenger.of(context)
+          .showSnackBar(SnackBar(content: Text(e.toString())));
     }
   }
 
@@ -106,4 +128,10 @@ class _HomePageState extends State<HomePage> {
       _onSend(chatMessage);
     }
   }
+
+  // void _showChatHistory() {
+  //   Navigator.of(context).push(MaterialPageRoute(
+  //     builder: (context) => ChatHistoryScreen(messages: messages),
+  //   ));
+  // }
 }
